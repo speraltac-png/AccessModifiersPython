@@ -1,12 +1,52 @@
-# Proyecto: Modificadores de acceso en Python (POO) – Cuenta bancaria
+# Proyecto: Modificadores de acceso en Python (POO) – Cuenta bancaria + MVVM (intro)
 
 Este proyecto muestra, con un ejemplo simple de creación y uso de una cuenta bancaria, cómo se modelan los “modificadores de acceso” en Python usando convenciones y name mangling, además de un flujo de uso desde `main()`.
 
-Archivos principales:
+Archivos principales (versión original):
 - `persona.py`: clase `Persona` con atributos público, protegido (convención) y privado (name mangling), además de una `property` con validación.
 - `cuenta_bancaria.py`: clase `CuentaBancaria` con atributos público, protegido, privado y métodos para operar (depósito, retiro, transferencia).
 - `oficina.py`: clase `OficinaBancaria` que orquesta apertura de cuentas y transferencias entre cuentas.
 - `main.py`: función `main()` que ejecuta una demostración práctica de accesos y errores controlados.
+
+---
+
+## Nueva demo con arquitectura MVVM (intro en 3 paquetes)
+
+Se añadió una variante mínima de MVVM para separar responsabilidades:
+
+- `domain/`: modelo de dominio puro.
+- `presentation/`: ViewModel con estado observable y comandos.
+- `ui/`: vista CLI que se suscribe al ViewModel.
+- `app/main.py`: punto de entrada que compone dominio → ViewModel → vista.
+
+Estructura:
+
+```
+domain/
+  __init__.py
+  account.py
+presentation/
+  __init__.py
+  observable.py
+  account_vm.py
+ui/
+  __init__.py
+  account_cli.py
+app/
+  main.py
+```
+
+### Cómo ejecutar la demo MVVM
+
+```bash
+python -m app.main
+```
+
+Comandos dentro de la CLI:
+
+- `d <monto>`: depositar.
+- `r <monto> <pin>`: retirar (PIN inicial: `1234`).
+- `q`: salir.
 
 ## Cómo ejecutar
 
@@ -66,7 +106,7 @@ def sumar(a: int, b: int) -> int:
 
 Estas anotaciones son opcionales: documentan, ayudan a herramientas de análisis y mejoran la legibilidad, pero no cambian la ejecución (Python no valida tipos estrictamente en runtime por defecto). En este proyecto retiramos esas anotaciones para alinearnos con tu curso actual, pero es común encontrarlas en código profesional.
 
-## Flujo de la demo (`main.py`)
+## Flujo de la demo original (`main.py`)
 
 `main()` ejecuta tres demostraciones:
 1. Persona: acceso a `nombre` (público), lectura/validación de `edad` (privado mediante property), acceso al protegido `_dni`, error por leer `__edad` directamente y ejemplo de name mangling.
