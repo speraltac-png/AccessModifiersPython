@@ -118,3 +118,6 @@ Estas anotaciones son opcionales: documentan, ayudan a herramientas de análisis
 - Evita usar fuera de su clase atributos/métodos con `_` o `__`.
 - Expón operaciones con métodos públicos y usa `properties` cuando necesites validación.
 - Recuerda: el name mangling refuerza encapsulación, pero no es un mecanismo de seguridad.
+
+- doc
+- https://www.geeksforgeeks.org/python/name-mangling-in-python/
