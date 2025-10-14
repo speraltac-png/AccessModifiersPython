@@ -1,0 +1,4 @@
+FIREBASE_DB_URL=https://<tu-project>-default-rtdb.firebaseio.com
+# Puedes usar una ruta a archivo o pegar el JSON completo aquí
+FIREBASE_CREDENTIALS_JSON=D:\ruta\a\serviceAccount.json
+

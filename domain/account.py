@@ -56,3 +56,29 @@ class CuentaBancaria:
         self.__pin = pin
 
 
+    # --- Serialización simple para RTDB ---
+    def to_dict(self):
+        """
+        Serializa el estado público/exportable de la cuenta.
+        El PIN no se expone.
+        """
+        return {
+            "numero_cuenta": self.numero_cuenta,
+            "titular": self.titular,
+            "saldo": self._saldo,
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        """
+        Crea una instancia a partir de un dict. El PIN inicial por defecto es "0000"
+        (puedes cambiarlo luego con `cambiar_pin`).
+        """
+        numero = data.get("numero_cuenta")
+        titular = data.get("titular")
+        saldo = data.get("saldo", 0)
+        inst = cls(numero, titular, "0000")
+        # Ajustamos saldo directamente (uso interno controlado)
+        inst._saldo = saldo
+        return inst
+

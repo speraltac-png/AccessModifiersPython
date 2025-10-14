@@ -121,3 +121,71 @@ Estas anotaciones son opcionales: documentan, ayudan a herramientas de análisis
 
 - doc
 - https://www.geeksforgeeks.org/python/name-mangling-in-python/
+
+---
+
+## Integración: Firebase Realtime Database (CRUD básico)
+
+Esta rama añade una integración mínima con Firebase RTDB, respetando la separación MVVM:
+
+- `data/firebase_service.py`: servicio de datos con operaciones CRUD (`create/read/update/delete/list`).
+- `domain/account.py`: agrega `to_dict()` y `from_dict()` para serialización.
+- `presentation/account_vm.py`: expone comandos `guardar`, `cargar`, `eliminar`, `listar` usando el servicio.
+- `ui/account_cli.py`: añade comandos CLI para CRUD.
+
+### Requisitos
+
+Instala dependencias:
+
+```bash
+pip install -r requirements.txt
+```
+
+Variables de entorno necesarias:
+
+- `FIREBASE_DB_URL`: URL de tu RTDB (por ejemplo `https://<project-id>-default-rtdb.firebaseio.com`).
+- `FIREBASE_CREDENTIALS_JSON`: Ruta al JSON de credenciales de servicio o el contenido JSON literal.
+
+En PowerShell:
+
+```powershell
+$env:FIREBASE_DB_URL = "https://<tu-project>-default-rtdb.firebaseio.com"
+$env:FIREBASE_CREDENTIALS_JSON = "D:\ruta\a\serviceAccount.json"
+```
+
+También puedes pegar el contenido JSON directamente:
+
+```powershell
+$env:FIREBASE_CREDENTIALS_JSON = '{"type":"service_account", ... }'
+```
+
+### Uso desde la CLI
+
+Ejecuta la app habitual:
+
+```bash
+python -m app.main
+```
+
+Comandos adicionales:
+
+- `new <num> <titular> <pin>`: crea una cuenta local en memoria.
+- `save`: guarda/crea en RTDB usando `num` como clave.
+- `load <num>`: carga desde RTDB y sustituye la cuenta activa.
+- `del <num>`: elimina la entrada en RTDB.
+- `list`: lista todas las cuentas almacenadas bajo `accounts/`.
+
+Notas:
+
+- El PIN no se persiste en RTDB (solo `numero_cuenta`, `titular`, `saldo`). Al cargar, el PIN queda como `"0000"` por defecto; puedes cambiarlo con `cambiar_pin`.
+- El servicio usa la ruta base `accounts/` en RTDB; puedes cambiarla instanciando `FirebaseRealtimeService(base_path="otra/ruta")`.
+
+### Inyección del servicio
+
+Para habilitar Firebase en tiempo de ejecución, crea el servicio y pásalo al ViewModel en `app/main.py`:
+
+```python
+from data.firebase_service import FirebaseRealtimeService
+storage = FirebaseRealtimeService(base_path="accounts")
+vm = CuentaViewModel(cuenta, storage)
+```
