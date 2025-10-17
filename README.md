@@ -195,5 +195,7 @@ vm = CuentaViewModel(cuenta, storage)
 <img width="938" height="197" alt="image" src="https://github.com/user-attachments/assets/96c9d3f4-a802-4021-ae72-fe34a02f19dd" />
 <img width="1058" height="457" alt="image" src="https://github.com/user-attachments/assets/0b275db2-1db5-465d-9833-c198827dc9e0" />
 <img width="942" height="321" alt="image" src="https://github.com/user-attachments/assets/7fa2b3e0-a72b-4284-bb57-c651c194e72a" />
+<img width="1039" height="363" alt="image" src="https://github.com/user-attachments/assets/fe4c940f-79e3-4264-bc2d-902a5ccc480a" />
+
 
 
