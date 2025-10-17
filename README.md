@@ -153,10 +153,15 @@ $env:FIREBASE_DB_URL = "https://<tu-project>-default-rtdb.firebaseio.com"
 $env:FIREBASE_CREDENTIALS_JSON = "D:\ruta\a\serviceAccount.json"
 ```
 
-También puedes pegar el contenido JSON directamente:
+Puedes pegar el contenido JSON directamente o crear manualmente el .env:
 
 ```powershell
 $env:FIREBASE_CREDENTIALS_JSON = '{"type":"service_account", ... }'
+```
+Crear .env
+```
+FIREBASE_DB_URL = "Ruta de la base de datos"
+FIREBASE_CREDENTIALS_JSON = "Ruta local de la llave (archivo .json)"
 ```
 
 ### Uso desde la CLI
